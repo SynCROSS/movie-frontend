@@ -5,8 +5,13 @@ const FooterBlock = styled.footer`
   width: 100%;
   padding: 1rem 2rem;
 
-  background-color: #222;
+  background-color: #000;
   color: #eee;
+
+  & > a:hover {
+    transition: all 0.2s ease-in-out;
+    color: darkgray;
+  }
 `;
 
 const Footer = () => {
