@@ -29,7 +29,7 @@ const Header = () => {
       <div className="flex jc-center">
         <Link href="/">
           <a>
-            <Image src="/NETFLEX.svg" width={140} height={20} />
+            <Image src="/logo.svg" width={140} height={20} />
           </a>
         </Link>
         <Link href="/Movie">
