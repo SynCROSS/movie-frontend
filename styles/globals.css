@@ -26,6 +26,7 @@ body {
 
 button {
   border: none;
+  cursor: pointer;
 }
 
 a {
@@ -60,5 +61,5 @@ li {
 
 .main-content {
   margin: auto;
-  min-height: calc(100vh - 90px);
+  min-height: calc(100vh - 106px);
 }
