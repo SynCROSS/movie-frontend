@@ -131,7 +131,7 @@ const Home = ({
                     }
                     alt=""
                     width="326"
-                    title={p?.name}
+                    title={p?.name || p?.title}
                     loading="lazy"
                   />
                 </ContentsItem>
@@ -161,7 +161,7 @@ const Home = ({
                     }
                     alt=""
                     width="326"
-                    title={tr?.name}
+                    title={tr?.name || tr?.title}
                     loading="lazy"
                   />
                 </ContentsItem>
@@ -191,7 +191,7 @@ const Home = ({
                     }
                     alt=""
                     width="326"
-                    title={t?.name}
+                    title={t?.name || t?.title}
                     loading="lazy"
                   />
                 </ContentsItem>
