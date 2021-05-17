@@ -1,9 +1,8 @@
-import axios from 'axios';
-const BASE_URL = 'http://localhost:4000/api';
+import client, { BASE_URL } from './client';
 
 export const login = async ({ username, password }) => {
   try {
-    const { data } = await axios.post(`${BASE_URL}/auth/login`, {
+    const { data } = await client.post(`${BASE_URL}/auth/login`, {
       username,
       password,
     });
@@ -15,7 +14,7 @@ export const login = async ({ username, password }) => {
 
 export const register = async ({ username, nickname, email, password }) => {
   try {
-    return await axios.post(`${BASE_URL}/users/register`, {
+    return await client.post(`${BASE_URL}/users/register`, {
       username,
       nickname,
       email,
@@ -28,7 +27,7 @@ export const register = async ({ username, nickname, email, password }) => {
 
 export const checkLoggedIn = async (token: string) => {
   try {
-    return await axios.get(`${BASE_URL}/auth/profile`, {
+    return await client.get(`${BASE_URL}/auth/profile`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
