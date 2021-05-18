@@ -58,7 +58,7 @@ const Header = ({ user }) => {
         // * User
         user ? (
           <div className="flex jc-center ai-center">
-            <strong>Hi, {user?.username}</strong>
+            <strong>{user?.username}</strong>
             <StyledAuthButton>Log out</StyledAuthButton>
           </div>
         ) : (
