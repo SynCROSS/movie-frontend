@@ -10,7 +10,7 @@ const HeaderBlock = styled.header`
   position: sticky;
   top: 0;
   left: 0;
-  /* z-index: 10; */
+  z-index: 10;
 
   background-color: #000;
   color: #eee;
@@ -27,7 +27,7 @@ const MenuLink = styled.a`
 const StyledAuthButton = styled(AuthButton)`
   margin: 0 0.5rem;
   width: 7rem;
-  height: 35px;
+  height: 3rem;
 
   &.register {
     background: none;
