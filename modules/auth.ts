@@ -93,6 +93,4 @@ const auth = handleActions(
   initialState,
 );
 
-// export type authState = ReturnType<typeof auth>;
-
 export default auth;
