@@ -29,7 +29,7 @@ export const register = async ({ username, nickname, email, password }) => {
 
 export const checkLoggedIn = async (token: string) => {
   try {
-    const { data } = await client.get(`${BASE_URL}/auth/profile`, {
+    const { data } = await client.get(`${BASE_URL}/auth/check`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
