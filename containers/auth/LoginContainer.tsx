@@ -5,6 +5,7 @@ import { changeField, initForm, login } from '../../modules/auth';
 import { RootState } from '../../modules/index';
 import { check } from '../../modules/user';
 import { useRouter } from 'next/dist/client/router';
+import { login as realLogin } from '../../lib/api/auth';
 
 const LoginContainer = () => {
   const [error, setError] = useState([]);
@@ -30,7 +31,6 @@ const LoginContainer = () => {
     if ([username, password].includes('')) {
       setError(error => error.concat('Check Username or Password Is Empty.'));
     }
-
     dispatch(login({ username, password }));
   };
 
@@ -45,13 +45,13 @@ const LoginContainer = () => {
       return;
     }
     if (auth) {
+      dispatch(check(auth));
       console.log('Successfully Logged in!');
-      const token = document?.cookie
-        ?.split('; ')
-        ?.find(row => row.startsWith('Authentication='))
-        ?.split('=')[1];
-
-      dispatch(check({ token }));
+      try {
+        sessionStorage?.setItem('token', auth);
+      } catch (e) {
+        console.error(e);
+      }
     }
   }, [auth, authError, dispatch]);
 
@@ -59,6 +59,11 @@ const LoginContainer = () => {
   useEffect(() => {
     if (user) {
       router.push('/');
+      try {
+        sessionStorage?.setItem('user', user);
+      } catch (e) {
+        console.error(e);
+      }
     }
   }, [router, user]);
 

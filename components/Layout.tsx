@@ -1,13 +1,10 @@
-import Header from './common/Header';
 import Footer from './common/Footer';
+import HeaderContainer from '../containers/common/HeaderContainer';
 
 const Layout = ({ children }) => {
   return (
-    <div
-      className="flex jc-center ai-center flex-dir-col"
-      // style={{ height: '100%' }}
-    >
-      <Header />
+    <div className="flex jc-center ai-center flex-dir-col">
+      <HeaderContainer />
       {children}
       <Footer />
     </div>

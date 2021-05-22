@@ -6,6 +6,7 @@ import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer, { rootSaga } from '../modules/index';
 import createSagaMiddleware from 'redux-saga';
+import { tempSetUser, check } from '../modules/user';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -14,6 +15,23 @@ const store = createStore(
 );
 
 sagaMiddleware.run(rootSaga);
+
+const loadUser = () => {
+  try {
+    const user = sessionStorage?.getItem('user');
+    const token = sessionStorage?.getItem('token');
+
+    if (!user && !token) {
+      return;
+    }
+
+    store.dispatch(tempSetUser(user));
+    store.dispatch(check(token));
+  } catch (e) {
+    console.error(e);
+  }
+};
+loadUser();
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
