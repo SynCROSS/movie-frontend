@@ -59,40 +59,6 @@ const StyledAuthButton = styled(AuthButton)`
       color: #ff1746;
     }
   }
-  /* #### Mobile Phones Portrait #### */
-  @media screen and (max-device-width: 480px) and (orientation: portrait) {
-  }
-
-  /* #### Mobile Phones Landscape #### */
-  @media screen and (max-device-width: 640px) and (orientation: landscape) {
-  }
-
-  /* #### Mobile Phones Portrait or Landscape #### */
-  @media screen and (max-device-width: 640px) {
-  }
-
-  /* #### iPhone 4+ Portrait or Landscape #### */
-  @media screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {
-  }
-
-  /* #### iPhone 5 Portrait or Landscape #### */
-  @media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {
-  }
-
-  /* #### iPhone 6 and 6 plus Portrait or Landscape #### */
-  @media (device-height: 667px) and (device-width: 375px) {
-    width: 5rem;
-    height: 2rem;
-    font-size: 12px;
-  }
-
-  /* #### Tablets Portrait or Landscape #### */
-  @media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  }
-
-  /* #### Desktops #### */
-  @media screen and (min-width: 1024px) {
-  }
 `;
 
 const MenuButton = styled.button`
