@@ -65,7 +65,7 @@ const MenuButton = styled.button`
   font-size: 2rem;
   color: #aaa;
   background: transparent;
-  float: left;
+  line-height: 1;
   display: none;
   /* Extra small devices (phones, 600px and down) */
   @media only screen and (max-width: 600px) {
@@ -122,15 +122,19 @@ const Header = ({ user }) => {
       </MenuButton>
       <HeaderMenu className="flex jc-center ai-center" id="header_menu">
         <CloseButton aria-labelledby="Close" onClick={closeMenu}>
-          x
+          ×
         </CloseButton>
         <Link href="/">
-          <a className="flex jc-center ai-center">
+          <a className="flex jc-center ai-center" onClick={closeMenu}>
             <Image src="/logo.svg" width={140} height={20} alt="NETFLEX" />
           </a>
         </Link>
-        <MenuLink href="/Movie">Movie</MenuLink>
-        <MenuLink href="/TV">TV</MenuLink>
+        <MenuLink href="/Movie" onClick={closeMenu}>
+          Movie
+        </MenuLink>
+        <MenuLink href="/TV" onClick={closeMenu}>
+          TV
+        </MenuLink>
       </HeaderMenu>
       {user ? (
         <div className="flex jc-center ai-center">
