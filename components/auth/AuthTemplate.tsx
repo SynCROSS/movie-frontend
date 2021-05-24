@@ -8,7 +8,7 @@ const AuthTemplateBlock = styled.div`
 `;
 
 const BlackBox = styled.div`
-  width: 20%;
+  width: 30rem;
   padding: 3rem 5rem;
   background-color: #000;
 `;
