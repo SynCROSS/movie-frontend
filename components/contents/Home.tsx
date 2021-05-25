@@ -1,20 +1,18 @@
+import Link from 'next/link';
 import { Dispatch, SetStateAction, UIEvent, useState } from 'react';
 import styled from 'styled-components';
+import DetailContainer from '../../containers/content/DetailContainer';
+import { BASE_IMAGE_URL, PLACEHOlDER_URL } from '../../lib/link';
 
 const HomeBlock = styled.div`
   width: 100%;
-  background-color: #111;
   color: #eee;
+  background: linear-gradient(#000, #111);
 `;
 
 const StyledSection = styled.section`
-  width: -webkit-fill-available;
-  padding: 2.5rem 10.5rem;
-`;
-
-const HeaderImage = styled.img`
-  width: 100%;
-  filter: brightness(0.4);
+  width: 90%;
+  /* padding: 2.5rem 5.5rem; */
 `;
 
 const ContentsHeader = styled.h2`
@@ -75,7 +73,77 @@ const ContentsList = styled.ul`
 
 const ContentsItem = styled.li`
   flex: 0 0 auto;
+  position: relative;
 `;
+
+const ContentShadow = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  box-shadow: inset 0 -5rem 10rem 0 rgba(0, 0, 0, 0.7);
+`;
+
+const ContentTitle = styled.b`
+  width: 100%;
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  z-index: 4;
+  color: #eee;
+`;
+
+function setShadows(e: UIEvent, setState: Dispatch<SetStateAction<boolean>>) {
+  if (e.currentTarget.scrollLeft > 0) {
+    setState(true);
+  } else if (e.currentTarget.scrollLeft < 5390) {
+    setState(false);
+  }
+}
+
+const ContentsArea = ({ isScrolling, setScrolling, contents }) => {
+  return (
+    <ContentsWrapper>
+      <ContentsList
+        className={`flex ai-center ${isScrolling ? 'off-top' : 'off-bottom'}`}
+        onScroll={e => setShadows(e, setScrolling)}
+      >
+        <div className="shadow shadow-top" aria-hidden="true"></div>
+        {contents?.map(content => (
+          <ContentsItem key={content?.id}>
+            <Link
+              href={`/Detail/${
+                content?.media_type
+                  ? undefined
+                  : content?.first_air_date
+                  ? 'tv'
+                  : 'movie'
+              }/${content?.id}`}
+            >
+              <a>
+                <img
+                  src={
+                    content?.backdrop_path
+                      ? `${BASE_IMAGE_URL}${content?.backdrop_path}`
+                      : PLACEHOlDER_URL + encodeURIComponent(`${content?.name}`)
+                  }
+                  alt=""
+                  width="342.538"
+                  loading="lazy"
+                />
+                <ContentShadow />
+                <ContentTitle>{content?.name || content?.title}</ContentTitle>
+              </a>
+            </Link>
+          </ContentsItem>
+        ))}
+        <div className="shadow shadow-bottom" aria-hidden="true"></div>
+      </ContentsList>
+    </ContentsWrapper>
+  );
+};
 
 const Home = ({
   popular = [],
@@ -87,118 +155,38 @@ const Home = ({
   const [topRatedScrolling, setTopRatedScrolling] = useState(false);
   const [trendingScrolling, setTrendingScrolling] = useState(false);
 
-  function setShadows(e: UIEvent, setState: Dispatch<SetStateAction<boolean>>) {
-    if (e.currentTarget.scrollLeft > 0) {
-      setState(true);
-    } else if (e.currentTarget.scrollLeft < 5390) {
-      setState(false);
-    }
-  }
-
-  const PLACEHOlDER_URL = 'https://via.placeholder.com/326x183/000?Text=';
-  const API_URL = 'https://www.themoviedb.org/t/p/original';
-
   return (
     <HomeBlock className="main-content flex jc-center ai-center flex-dir-col">
       {trendingContent && (
-        <div id="recommendation">
-          <HeaderImage
-            src={`${API_URL}/${trendingContent?.backdrop_path}`}
-            alt=""
-          />
-          <h1></h1>
-        </div>
+        <DetailContainer
+          media_type={trendingContent?.media_type}
+          id={trendingContent?.id}
+        />
       )}
       <StyledSection>
         <div id="popular">
           <ContentsHeader>What's Popular!</ContentsHeader>
-          <ContentsWrapper>
-            <ContentsList
-              id="popular_list"
-              className={`flex ai-center ${
-                popularScrolling ? 'off-top' : 'off-bottom'
-              }`}
-              onScroll={e => setShadows(e, setPopularScrolling)}
-            >
-              <div className="shadow shadow-top" aria-hidden="true"></div>
-              {popular?.map(p => (
-                <ContentsItem key={p?.id}>
-                  <img
-                    src={
-                      p?.backdrop_path
-                        ? `${API_URL}/${p?.backdrop_path}`
-                        : encodeURIComponent(PLACEHOlDER_URL + `${p?.name}`)
-                    }
-                    alt=""
-                    width="326"
-                    title={p?.name || p?.title}
-                    loading="lazy"
-                  />
-                </ContentsItem>
-              ))}
-              <div className="shadow shadow-bottom" aria-hidden="true"></div>
-            </ContentsList>
-          </ContentsWrapper>
+          <ContentsArea
+            isScrolling={popularScrolling}
+            setScrolling={setPopularScrolling}
+            contents={popular}
+          />
         </div>
         <div id="topRated">
           <ContentsHeader>Top Rated</ContentsHeader>
-          <ContentsWrapper>
-            <ContentsList
-              id="top_rated_list"
-              className={`flex ai-center ${
-                topRatedScrolling ? 'off-top' : 'off-bottom'
-              }`}
-              onScroll={e => setShadows(e, setTopRatedScrolling)}
-            >
-              <div className="shadow shadow-top" aria-hidden="true"></div>
-              {topRated?.map(tr => (
-                <ContentsItem key={tr?.id}>
-                  <img
-                    src={
-                      tr?.backdrop_path
-                        ? `${API_URL}/${tr?.backdrop_path}`
-                        : encodeURIComponent(PLACEHOlDER_URL + `${tr?.name}`)
-                    }
-                    alt=""
-                    width="326"
-                    title={tr?.name || tr?.title}
-                    loading="lazy"
-                  />
-                </ContentsItem>
-              ))}
-              <div className="shadow shadow-bottom" aria-hidden="true"></div>
-            </ContentsList>
-          </ContentsWrapper>
+          <ContentsArea
+            isScrolling={topRatedScrolling}
+            setScrolling={setTopRatedScrolling}
+            contents={topRated}
+          />
         </div>
         <div id="trending">
           <ContentsHeader>Trending</ContentsHeader>
-          <ContentsWrapper>
-            <ContentsList
-              id="trending_list"
-              className={`flex ai-center ${
-                trendingScrolling ? 'off-top' : 'off-bottom'
-              }`}
-              onScroll={e => setShadows(e, setTrendingScrolling)}
-            >
-              <div className="shadow shadow-top" aria-hidden="true"></div>
-              {trending?.map(t => (
-                <ContentsItem key={t?.id}>
-                  <img
-                    src={
-                      t?.backdrop_path
-                        ? `${API_URL}/${t?.backdrop_path}`
-                        : encodeURIComponent(PLACEHOlDER_URL + `${t?.name}`)
-                    }
-                    alt=""
-                    width="326"
-                    title={t?.name || t?.title}
-                    loading="lazy"
-                  />
-                </ContentsItem>
-              ))}
-              <div className="shadow shadow-bottom" aria-hidden="true"></div>
-            </ContentsList>
-          </ContentsWrapper>
+          <ContentsArea
+            isScrolling={trendingScrolling}
+            setScrolling={setTrendingScrolling}
+            contents={trending}
+          />
         </div>
       </StyledSection>
     </HomeBlock>

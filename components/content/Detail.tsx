@@ -1,6 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getDetailContent } from '../../lib/api/content';
 import { BASE_IMAGE_URL } from '../../lib/link';
 
 const DetailBlock = styled.div`
@@ -37,9 +35,17 @@ const InfoArea = styled.div`
 `;
 
 const ContentTitle = styled.h1`
+  margin: 5rem 0;
   font-size: 6rem;
   line-height: 1;
-  margin: 1rem 0;
+  color: #eee;
+
+  @media screen and (max-device-width: 480px) and (orientation: portrait),
+    screen and (min-device-width: 768px) and (max-device-width: 1024px),
+    (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2),
+    (device-height: 667px) and (device-width: 375px) {
+    margin: 2rem 0;
+  }
 
   @media screen and (max-device-width: 480px) and (orientation: portrait),
     screen and (min-device-width: 768px) and (max-device-width: 1024px) {
@@ -70,7 +76,7 @@ const Overview = styled.p`
 
 const Poster = styled.img`
   height: 35rem;
-  margin: 0 2rem;
+  margin: 2rem;
   /* #### iPhone 5 Portrait or Landscape #### */
   @media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {
     height: 30rem;
@@ -83,35 +89,18 @@ const Poster = styled.img`
   }
 `;
 
-const Detail = ({ media_type, id }) => {
-  const [content, setContent] = useState(null);
-
-  const getContent = useCallback(async (media: string, id: number) => {
-    const detailContent = await getDetailContent(
-      media === 'movie' ? 'movies' : media,
-      id,
-    );
-    setContent(detailContent);
-  }, []);
-
-  useEffect(() => {
-    const fetchContent = async () => {
-      try {
-        await getContent(media_type, id);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchContent();
-  }, []);
-
+const Detail = ({ content }) => {
   return (
     <DetailBlock
       className="main-content flex jc-center ai-center flex-dir-col"
       backdrop={`${BASE_IMAGE_URL}${content?.backdrop_path}`}
     >
       <Recommendation className="flex ai-center">
-        <Poster src={`${BASE_IMAGE_URL}${content?.poster_path}`} alt="" />
+        <Poster
+          src={`${BASE_IMAGE_URL}${content?.poster_path}`}
+          alt=""
+          loading="lazy"
+        />
         <InfoArea className="flex flex-dir-col">
           <ContentTitle>{content?.title || content?.name}</ContentTitle>
           <Overview>{content?.overview?.slice(0, 200)}</Overview>
