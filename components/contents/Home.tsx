@@ -92,7 +92,7 @@ const ContentTitle = styled.b`
   right: 0;
   bottom: 10px;
   z-index: 4;
-  color: #eee;
+  color: #ccc;
 `;
 
 function setShadows(e: UIEvent, setState: Dispatch<SetStateAction<boolean>>) {
