@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
   return (
     <div
       className="flex jc-center ai-center flex-dir-col"
-      style={{ height: '100%' }}
+      style={{ minHeight: '100%' }}
     >
       <HeaderContainer />
       {children}
