@@ -4,8 +4,9 @@ import { BASE_IMAGE_URL } from '../../lib/link';
 const DetailBlock = styled.div`
   width: 100%;
   background: ${props =>
-    `linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,1) 100%), url(${props.backdrop}) center/cover no-repeat local` ||
-    '#111'};
+    props?.backdrop
+      ? `linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,1) 100%), url(${props.backdrop}) center/cover no-repeat local`
+      : '#111'};
   /* box-shadow: inset 100vw 100vh rgba(0, 0, 0, 0.7); */
 `;
 
