@@ -49,8 +49,21 @@ const HomeContainer = () => {
   // console.log('topRated:', topRated);
   // console.log('trending:', trending);
 
+  const [deviceWidth, setDeviceWidth] = useState(0);
+
+  useEffect(() => {
+    try {
+      setDeviceWidth(
+        window?.innerWidth > 0 ? window?.innerWidth : screen?.width,
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+
   return (
     <Home
+      deviceWidth={deviceWidth}
       popular={shuffleArray(uniqBy(popular, 'id'))}
       topRated={shuffleArray(uniqBy(topRated, 'id'))}
       trending={shuffleArray(uniqBy(trending, 'id'))}

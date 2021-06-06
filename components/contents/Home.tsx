@@ -7,7 +7,7 @@ import { BASE_IMAGE_URL, PLACEHOlDER_URL } from '../../lib/link';
 const HomeBlock = styled.div`
   width: 100%;
   color: #eee;
-  background: linear-gradient(#000, #111);
+  background: #000;
 `;
 
 const StyledSection = styled.section`
@@ -18,6 +18,7 @@ const StyledSection = styled.section`
 const ContentsHeader = styled.h2`
   text-align: left;
   font-size: 2rem;
+  margin: 1rem auto;
 `;
 
 const ContentsWrapper = styled.div`
@@ -103,7 +104,12 @@ function setShadows(e: UIEvent, setState: Dispatch<SetStateAction<boolean>>) {
   }
 }
 
-const ContentsArea = ({ isScrolling, setScrolling, contents }) => {
+const ContentsArea = ({
+  contentsWidth,
+  isScrolling,
+  setScrolling,
+  contents,
+}) => {
   return (
     <ContentsWrapper>
       <ContentsList
@@ -130,7 +136,9 @@ const ContentsArea = ({ isScrolling, setScrolling, contents }) => {
                       : PLACEHOlDER_URL + encodeURIComponent(`${content?.name}`)
                   }
                   alt=""
-                  width="342.538"
+                  width={
+                    contentsWidth > 540 ? contentsWidth * 0.2 : contentsWidth
+                  }
                   loading="lazy"
                 />
                 <ContentShadow />
@@ -146,6 +154,7 @@ const ContentsArea = ({ isScrolling, setScrolling, contents }) => {
 };
 
 const Home = ({
+  deviceWidth,
   popular = [],
   topRated = [],
   trending = [],
@@ -167,6 +176,7 @@ const Home = ({
         <div id="popular">
           <ContentsHeader>What's Popular!</ContentsHeader>
           <ContentsArea
+            contentsWidth={deviceWidth * 0.9}
             isScrolling={popularScrolling}
             setScrolling={setPopularScrolling}
             contents={popular}
@@ -175,6 +185,7 @@ const Home = ({
         <div id="topRated">
           <ContentsHeader>Top Rated</ContentsHeader>
           <ContentsArea
+            contentsWidth={deviceWidth * 0.9}
             isScrolling={topRatedScrolling}
             setScrolling={setTopRatedScrolling}
             contents={topRated}
@@ -183,6 +194,7 @@ const Home = ({
         <div id="trending">
           <ContentsHeader>Trending</ContentsHeader>
           <ContentsArea
+            contentsWidth={deviceWidth * 0.9}
             isScrolling={trendingScrolling}
             setScrolling={setTrendingScrolling}
             contents={trending}
