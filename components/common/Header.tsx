@@ -7,12 +7,12 @@ const HeaderBlock = styled.header`
   width: 100%;
   padding: 1rem 5rem;
   justify-content: space-between;
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   z-index: 10;
 
-  background-color: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
   color: #eee;
 
   @media only screen and (max-width: 600px) {
