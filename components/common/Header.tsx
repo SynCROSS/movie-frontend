@@ -7,12 +7,12 @@ const HeaderBlock = styled.header`
   width: 100%;
   padding: 1rem 5rem;
   justify-content: space-between;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 10;
 
-  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.5);
   color: #eee;
 
   @media only screen and (max-width: 600px) {
@@ -47,8 +47,8 @@ const MenuLink = styled.a`
 
 const StyledAuthButton = styled(AuthButton)`
   margin: 0 0.5rem;
-  width: 7rem;
-  height: 3rem;
+  width: 6rem;
+  height: 2.5rem;
 
   &.register {
     background: none;
@@ -86,24 +86,11 @@ const CloseButton = styled.button`
   }
 `;
 
-const Outside = styled.div`
-  display: none;
-  width: 0;
-  height: 100%;
-  transition: all 0.5s ease-in-out;
-
-  @media only screen and (max-width: 600px) {
-    display: block;
-    background-color: rgba(0, 0, 0, 0.7);
-  }
-`;
-
 const Header = ({ user }) => {
   const openMenu = () => {
     if (document) {
       document.getElementById('header_menu').style.width = '100px';
       document.getElementById('header_block').style.width = '100%';
-      // document.getElementById('outside_modal').style.width = '100%';
     }
   };
 
@@ -111,7 +98,6 @@ const Header = ({ user }) => {
     if (document) {
       document.getElementById('header_menu').removeAttribute('style');
       document.getElementById('header_block').removeAttribute('style');
-      // document.getElementById('outside_modal').style.width = '0';
     }
   };
 
