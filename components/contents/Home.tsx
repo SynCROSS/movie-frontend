@@ -122,7 +122,7 @@ const ContentsArea = ({
             <Link
               href={`/Detail/${
                 content?.media_type
-                  ? undefined
+                  ? content?.media_type
                   : content?.first_air_date
                   ? 'tv'
                   : 'movie'
