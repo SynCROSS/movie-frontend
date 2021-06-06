@@ -10,7 +10,6 @@ const DetailBlock = styled.div`
 `;
 
 const Recommendation = styled.div`
-  min-height: 100vh;
   justify-content: space-around;
   flex-direction: row-reverse;
 

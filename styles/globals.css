@@ -2,19 +2,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
 html,
-body {
+body,
+#__next {
   height: 100%;
   text-align: center;
 }
 
-html,
-body,
-#__next {
-  height: 100%;
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-body {
-  min-height: 100vh;
+#__next {
+  flex: 1 0 auto;
 }
 
 * {
@@ -62,5 +63,6 @@ li {
 
 .main-content {
   margin: auto;
-  min-height: calc(100vh - 106px);
+  /* min-height: calc(100vh - 106px); */
+  flex: 1 0 auto;
 }
