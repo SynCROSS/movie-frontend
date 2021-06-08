@@ -57,6 +57,10 @@ const AuthLinkArea = styled.div`
 const ErrorMessage = styled.ul`
   color: #ff1746;
   font-size: 0.8rem;
+
+  & > li {
+    margin-bottom: 1rem;
+  }
   /* padding: 0.5rem 0; */
 `;
 
