@@ -11,23 +11,32 @@ const shuffleArray = (array: Array<any>) =>
   array.sort(() => Math.random() - 0.5);
 
 const HomeContainer = () => {
-  const [popular, setPopular] = useState([]);
-  const [topRated, setTopRated] = useState([]);
-  const [trending, setTrending] = useState([]);
+  const [popularContents, setPopularContents] = useState([]);
+  const [topRatedContents, setTopRatedContents] = useState([]);
+  const [trendingContents, setTrendingContents] = useState([]);
 
   const fetchPopular = useCallback(async (media: string) => {
-    const popularContents = await getPopularContents(media);
-    setPopular(popular => popular.concat(popularContents?.data?.results));
+    const {
+      data: { results },
+    } = await getPopularContents(media);
+
+    setPopularContents(popularContents => popularContents.concat(results));
   }, []);
 
   const fetchTopRated = useCallback(async (media: string) => {
-    const topRatedContents = await getTopRatedContents(media);
-    setTopRated(topRated => topRated.concat(topRatedContents?.data?.results));
+    const {
+      data: { results },
+    } = await getTopRatedContents(media);
+
+    setTopRatedContents(topRatedContents => topRatedContents.concat(results));
   }, []);
 
   const fetchTrending = useCallback(async (media: string) => {
-    const trendingContents = await getTrendingContents(media);
-    setTrending(trending => trending.concat(trendingContents?.data?.results));
+    const {
+      data: { results },
+    } = await getTrendingContents(media);
+
+    setTrendingContents(trendingContents => trendingContents.concat(results));
   }, []);
 
   useEffect(() => {
@@ -49,25 +58,12 @@ const HomeContainer = () => {
   // console.log('topRated:', topRated);
   // console.log('trending:', trending);
 
-  const [deviceWidth, setDeviceWidth] = useState(0);
-
-  useEffect(() => {
-    try {
-      setDeviceWidth(
-        window?.innerWidth > 0 ? window?.innerWidth : screen?.width,
-      );
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
-
   return (
     <Home
-      deviceWidth={deviceWidth}
-      popular={shuffleArray(uniqBy(popular, 'id'))}
-      topRated={shuffleArray(uniqBy(topRated, 'id'))}
-      trending={shuffleArray(uniqBy(trending, 'id'))}
-      trendingContent={maxBy(uniqBy(trending, 'id'), 'popularity')}
+      popular={shuffleArray(uniqBy(popularContents, 'id'))}
+      topRated={shuffleArray(uniqBy(topRatedContents, 'id'))}
+      trending={shuffleArray(uniqBy(trendingContents, 'id'))}
+      trendingContent={maxBy(uniqBy(trendingContents, 'id'), 'popularity')}
     />
   );
 };
