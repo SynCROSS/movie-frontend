@@ -18,10 +18,14 @@ sagaMiddleware.run(rootSaga);
 
 const loadUser = () => {
   try {
+    if (!sessionStorage) {
+      return;
+    }
+
     const user = sessionStorage?.getItem('user');
     const token = sessionStorage?.getItem('token');
 
-    if (!user && !token) {
+    if (!user || !token) {
       return;
     }
 
@@ -31,6 +35,7 @@ const loadUser = () => {
     console.error(e);
   }
 };
+
 loadUser();
 
 export default function App({ Component, pageProps }: AppProps) {
