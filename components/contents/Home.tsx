@@ -154,7 +154,6 @@ const ContentsArea = ({
 };
 
 const Home = ({
-  deviceWidth,
   popular = [],
   topRated = [],
   trending = [],
@@ -163,6 +162,9 @@ const Home = ({
   const [popularScrolling, setPopularScrolling] = useState(false);
   const [topRatedScrolling, setTopRatedScrolling] = useState(false);
   const [trendingScrolling, setTrendingScrolling] = useState(false);
+
+  const deviceWidth =
+    window?.innerWidth > 0 ? window?.innerWidth : screen?.width;
 
   return (
     <HomeBlock className="main-content flex jc-center ai-center flex-dir-col">
