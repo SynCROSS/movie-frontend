@@ -18,7 +18,7 @@ sagaMiddleware.run(rootSaga);
 
 const loadUser = () => {
   try {
-    if (!sessionStorage) {
+    if (typeof sessionStorage === 'undefined') {
       return;
     }
 
