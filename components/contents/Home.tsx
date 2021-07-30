@@ -38,16 +38,18 @@ const ContentsList = styled.ul`
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 1;
     pointer-events: none;
     transition: all 0.2s ease-out;
   }
 
-  &.off-top {
+  &.off-bottom {
     .shadow-top {
       box-shadow: inset 5rem 0 5rem -5rem white;
     }
   }
-  &.off-bottom {
+
+  &.off-top {
     .shadow-bottom {
       box-shadow: inset -5rem 0 5rem -5rem white;
     }
@@ -99,24 +101,26 @@ const ContentTitle = styled.b`
 function setShadows(e: UIEvent, setState: Dispatch<SetStateAction<boolean>>) {
   if (e.currentTarget.scrollLeft > 0) {
     setState(true);
-  } else if (e.currentTarget.scrollLeft < 5390) {
-    setState(false);
+    return;
   }
+  setState(false);
 }
 
-const ContentsArea = ({
-  contentsWidth,
-  isScrolling,
-  setScrolling,
-  contents,
-}) => {
+const ContentsArea = ({ isScrolling, setScrolling, contents }) => {
+  if (typeof window === 'undefined' || typeof screen === 'undefined') {
+    return <ContentsWrapper />;
+  }
+
+  const deviceWidth =
+    (window?.innerWidth > 0 ? window?.innerWidth : screen?.width) * 0.9;
+
   return (
     <ContentsWrapper>
       <ContentsList
-        className={`flex ai-center ${isScrolling ? 'off-top' : 'off-bottom'}`}
+        className={`flex ai-center ${isScrolling ? 'off-bottom' : 'off-top'}`}
         onScroll={e => setShadows(e, setScrolling)}
       >
-        <div className="shadow shadow-top" aria-hidden="true"></div>
+        <div className="shadow shadow-top" aria-hidden="true" />
         {contents?.map(content => (
           <ContentsItem key={content?.id}>
             <Link
@@ -131,14 +135,12 @@ const ContentsArea = ({
               <a>
                 <img
                   src={
-                    content?.backdrop_path
+                    content.backdrop_path ?? false
                       ? `${BASE_IMAGE_URL}${content?.backdrop_path}`
-                      : PLACEHOlDER_URL + encodeURIComponent(`${content?.name}`)
+                      : PLACEHOlDER_URL + encodeURIComponent('No Background')
                   }
                   alt=""
-                  width={
-                    contentsWidth > 540 ? contentsWidth * 0.2 : contentsWidth
-                  }
+                  width={deviceWidth > 540 ? deviceWidth * 0.2 : deviceWidth}
                   loading="lazy"
                 />
                 <ContentShadow />
@@ -147,7 +149,7 @@ const ContentsArea = ({
             </Link>
           </ContentsItem>
         ))}
-        <div className="shadow shadow-bottom" aria-hidden="true"></div>
+        <div className="shadow shadow-bottom" aria-hidden="true" />
       </ContentsList>
     </ContentsWrapper>
   );
@@ -163,9 +165,6 @@ const Home = ({
   const [topRatedScrolling, setTopRatedScrolling] = useState(false);
   const [trendingScrolling, setTrendingScrolling] = useState(false);
 
-  const deviceWidth =
-    window?.innerWidth > 0 ? window?.innerWidth : screen?.width;
-
   return (
     <HomeBlock className="main-content flex jc-center ai-center flex-dir-col">
       {trendingContent && (
@@ -178,7 +177,6 @@ const Home = ({
         <div id="popular">
           <ContentsHeader>What's Popular!</ContentsHeader>
           <ContentsArea
-            contentsWidth={deviceWidth * 0.9}
             isScrolling={popularScrolling}
             setScrolling={setPopularScrolling}
             contents={popular}
@@ -187,7 +185,6 @@ const Home = ({
         <div id="topRated">
           <ContentsHeader>Top Rated</ContentsHeader>
           <ContentsArea
-            contentsWidth={deviceWidth * 0.9}
             isScrolling={topRatedScrolling}
             setScrolling={setTopRatedScrolling}
             contents={topRated}
@@ -196,7 +193,6 @@ const Home = ({
         <div id="trending">
           <ContentsHeader>Trending</ContentsHeader>
           <ContentsArea
-            contentsWidth={deviceWidth * 0.9}
             isScrolling={trendingScrolling}
             setScrolling={setTrendingScrolling}
             contents={trending}
