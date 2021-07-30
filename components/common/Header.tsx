@@ -12,7 +12,7 @@ const HeaderBlock = styled.header`
   left: 0;
   z-index: 10;
 
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   color: #eee;
 
   @media only screen and (max-width: 600px) {
