@@ -54,15 +54,27 @@ const HomeContainer = () => {
     fetchData();
   }, []);
 
-  // console.log('popular:', popular);
-  // console.log('topRated:', topRated);
-  // console.log('trending:', trending);
+  useEffect(() => {
+    setPopularContents(popularContents =>
+      shuffleArray(uniqBy(popularContents, 'id')),
+    );
+    setTopRatedContents(topRatedContents =>
+      shuffleArray(uniqBy(topRatedContents, 'id')),
+    );
+    setTrendingContents(trendingContents =>
+      shuffleArray(uniqBy(trendingContents, 'id')),
+    );
+  }, []);
+
+  // console.log('popularContents:', popularContents);
+  // console.log('topRatedContents:', topRatedContents);
+  // console.log('trendingContents:', trendingContents);
 
   return (
     <Home
-      popular={shuffleArray(uniqBy(popularContents, 'id'))}
-      topRated={shuffleArray(uniqBy(topRatedContents, 'id'))}
-      trending={shuffleArray(uniqBy(trendingContents, 'id'))}
+      popular={popularContents}
+      topRated={topRatedContents}
+      trending={trendingContents}
       trendingContent={maxBy(uniqBy(trendingContents, 'id'), 'popularity')}
     />
   );
