@@ -108,7 +108,17 @@ function setShadows(e: UIEvent, setState: Dispatch<SetStateAction<boolean>>) {
 
 const ContentsArea = ({ isScrolling, setScrolling, contents }) => {
   if (typeof window === 'undefined' || typeof screen === 'undefined') {
-    return <ContentsWrapper />;
+    return (
+      <ContentsWrapper>
+        <ContentsList
+          className={`flex ai-center ${isScrolling ? 'off-bottom' : 'off-top'}`}
+          onScroll={e => setShadows(e, setScrolling)}
+        >
+          <div className="shadow shadow-top" aria-hidden="true" />
+          <div className="shadow shadow-bottom" aria-hidden="true" />
+        </ContentsList>
+      </ContentsWrapper>
+    );
   }
 
   const deviceWidth =
