@@ -36,7 +36,7 @@ const InfoArea = styled.div`
 `;
 
 const ContentTitle = styled.h1`
-  margin: 5rem 0;
+  margin: 4rem 0;
   font-size: 6rem;
   line-height: 1;
   color: #eee;
@@ -61,7 +61,7 @@ const ContentTitle = styled.h1`
 
 const Overview = styled.p`
   margin: 0;
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: #bbb;
 
   @media screen and (max-device-width: 480px) and (orientation: portrait),
