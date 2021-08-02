@@ -36,8 +36,8 @@ const InfoArea = styled.div`
 `;
 
 const ContentTitle = styled.h1`
-  margin: 4rem 0;
-  font-size: 6rem;
+  margin: 2rem 0;
+  font-size: 8rem;
   line-height: 1;
   color: #eee;
 
@@ -61,8 +61,8 @@ const ContentTitle = styled.h1`
 
 const Overview = styled.p`
   margin: 0;
-  font-size: 2.5rem;
-  color: #bbb;
+  font-size: 2rem;
+  color: #aaa;
 
   @media screen and (max-device-width: 480px) and (orientation: portrait),
     screen and (min-device-width: 768px) and (max-device-width: 1024px) {
@@ -78,13 +78,12 @@ const Overview = styled.p`
 const Poster = styled.img`
   height: 35rem;
   margin: 2rem;
-  /* #### iPhone 5 Portrait or Landscape #### */
+
   @media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {
     height: 30rem;
     margin: 1rem 0;
   }
 
-  /* #### Tablets Portrait or Landscape #### */
   @media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
     height: 50rem;
   }
