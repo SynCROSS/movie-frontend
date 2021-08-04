@@ -45,21 +45,23 @@ export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
 }
 
-const initialState = {
-  login: {
-    username: '',
-    password: '',
-  },
-  register: {
-    username: '',
-    email: '',
-    nickname: '',
-    password: '',
-    passwordConfirm: '',
-  },
-  auth: null,
-  authError: null,
-};
+const initialState = JSON.parse(
+  JSON.stringify({
+    login: {
+      username: '',
+      password: '',
+    },
+    register: {
+      username: '',
+      email: '',
+      nickname: '',
+      password: '',
+      passwordConfirm: '',
+    },
+    auth: null,
+    authError: null,
+  }),
+);
 
 const auth = handleActions(
   {
