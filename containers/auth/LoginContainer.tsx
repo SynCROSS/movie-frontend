@@ -5,7 +5,6 @@ import { changeField, initForm, login } from '../../modules/auth';
 import { RootState } from '../../modules/index';
 import { check } from '../../modules/user';
 import { useRouter } from 'next/dist/client/router';
-import { login as realLogin } from '../../lib/api/auth';
 
 const LoginContainer = () => {
   const [error, setError] = useState([]);
@@ -44,6 +43,7 @@ const LoginContainer = () => {
       setError(error => error.concat('Login Failed'));
       return;
     }
+
     if (auth) {
       dispatch(check(auth));
       console.log('Successfully Logged in!');
