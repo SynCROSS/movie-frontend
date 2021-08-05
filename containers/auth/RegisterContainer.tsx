@@ -60,7 +60,7 @@ const RegisterContainer = () => {
       );
     }
 
-    if (!error) {
+    if (!error && form?.passwordConfirm) {
       form.passwordConfirm = undefined;
       dispatch(register(form));
     }
