@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
 const AuthFormBlock = styled.div``;
@@ -64,10 +63,12 @@ const ErrorMessage = styled.ul`
   /* padding: 0.5rem 0; */
 `;
 
-const typeList = {
-  login: 'Log in',
-  register: 'Sign up',
-};
+const typeList = JSON.parse(
+  JSON.stringify({
+    login: 'Log in',
+    register: 'Sign up',
+  }),
+);
 
 export const PASSWORD_PATTERN =
   '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[\\w\\d@$!%*?&]{8,16}$';
