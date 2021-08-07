@@ -49,7 +49,12 @@ const RegisterContainer = () => {
     ) {
       setError(error =>
         error.concat(
-          'Check All Passwords Contain Minimum 8 And Maximum 16 Characters, At Least 1 Uppercase Letter, 1 Lowercase Letter, 1 Number And 1 Special Character',
+          'Password Must Be At Least 8 ~ 16 Characters Long,',
+          'Check All Passwords Must Contain',
+          'Uppercase Letters,',
+          'Lowercase Letters,',
+          'Numbers,',
+          'Special Characters',
         ),
       );
     }
