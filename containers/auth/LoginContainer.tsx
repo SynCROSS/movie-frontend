@@ -19,17 +19,23 @@ const LoginContainer = () => {
   const dispatch = useDispatch();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target;
+    const { name, value } = e.target;
     dispatch(changeField({ form: 'login', key: name, value }));
   };
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+
     const { username, password } = form;
 
-    if ([username, password].includes('')) {
-      setError(error => error.concat('Check Username or Password Is Empty.'));
+    if (!username) {
+      setError(error => error.concat('Check Username Has No Problem.'));
     }
+
+    if (!password) {
+      setError(error => error.concat('Check Password Has No Problem.'));
+    }
+
     dispatch(login({ username, password }));
   };
 
@@ -40,15 +46,21 @@ const LoginContainer = () => {
   useEffect(() => {
     if (authError) {
       console.log('AuthError:', authError);
+
       setError(error => error.concat('Login Failed'));
+
       return;
     }
 
     if (auth) {
       dispatch(check(auth));
+
       console.log('Successfully Logged in!');
+
       try {
-        sessionStorage?.setItem('token', auth);
+        if (!!sessionStorage) {
+          sessionStorage?.setItem('token', auth);
+        }
       } catch (e) {
         console.error(e);
       }
@@ -56,11 +68,15 @@ const LoginContainer = () => {
   }, [auth, authError, dispatch]);
 
   const router = useRouter();
+
   useEffect(() => {
     if (user) {
       router.push('/');
+
       try {
-        sessionStorage?.setItem('user', user);
+        if (!!sessionStorage) {
+          sessionStorage?.setItem('user', user);
+        }
       } catch (e) {
         console.error(e);
       }
