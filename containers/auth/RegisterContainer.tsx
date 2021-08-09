@@ -31,15 +31,23 @@ const RegisterContainer = () => {
     const { username, nickname, email, password, passwordConfirm } = form;
     console.log(authError);
 
-    if ([username, nickname, password, passwordConfirm].includes('')) {
-      setError(error =>
-        error.concat(
-          'Check Username, Nickname, Password, Confirm Password Are Empty.',
-        ),
-      );
+    if (!username) {
+      setError(error => error.concat('Check Username Has No Problem.'));
     }
 
-    if (email && !new RegExp(EMAIL_PATTERN).exec(email)) {
+    if (!nickname) {
+      setError(error => error.concat('Check Nickname Has No Problem.'));
+    }
+
+    if (!password) {
+      setError(error => error.concat('Check Password Has No Problem.'));
+    }
+
+    if (!passwordConfirm) {
+      setError(error => error.concat('Check Confirm Password Has No Problem.'));
+    }
+
+    if (!!email && !new RegExp(EMAIL_PATTERN).exec(email)) {
       setError(error => error.concat('Check Email is Empty.'));
     }
 
@@ -67,6 +75,7 @@ const RegisterContainer = () => {
 
     if (!error && form?.passwordConfirm) {
       form.passwordConfirm = undefined;
+
       dispatch(register(form));
     }
   };
@@ -78,14 +87,18 @@ const RegisterContainer = () => {
   useEffect(() => {
     if (authError) {
       console.log('AuthError:', authError);
-      if (authError.response.status === 409) {
+
+      if (authError?.response?.status === 409) {
         setError(error => error.concat('This Account Already Exists.'));
       }
       return;
     }
+
     if (auth) {
       const { id, createdAt, updatedAt, deletedAt, ...userData } = auth;
+
       console.log('Successfully Registered', userData);
+
       const token = document?.cookie
         ?.split('; ')
         ?.find(row => row.startsWith('Authentication='))
@@ -96,6 +109,7 @@ const RegisterContainer = () => {
   }, [auth, authError, dispatch]);
 
   const router = useRouter();
+
   useEffect(() => {
     if (user) {
       console.log('User:', user);
