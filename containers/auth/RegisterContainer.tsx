@@ -28,23 +28,24 @@ const RegisterContainer = () => {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+
     const { username, nickname, email, password, passwordConfirm } = form;
     console.log(authError);
 
     if (!username) {
-      setError(error => error.concat('Check Username Has No Problem.'));
+      setError(error => error.concat('Check Username Is Empty.'));
     }
 
     if (!nickname) {
-      setError(error => error.concat('Check Nickname Has No Problem.'));
+      setError(error => error.concat('Check Nickname Is Empty.'));
     }
 
     if (!password) {
-      setError(error => error.concat('Check Password Has No Problem.'));
+      setError(error => error.concat('Check Password Is Empty.'));
     }
 
     if (!passwordConfirm) {
-      setError(error => error.concat('Check Confirm Password Has No Problem.'));
+      setError(error => error.concat('Check Confirm Password Is Empty.'));
     }
 
     if (!!email && !new RegExp(EMAIL_PATTERN).exec(email)) {
