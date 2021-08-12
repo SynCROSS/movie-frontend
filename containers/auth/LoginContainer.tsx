@@ -20,6 +20,7 @@ const LoginContainer = () => {
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     dispatch(changeField({ form: 'login', key: name, value }));
   };
 
@@ -45,7 +46,7 @@ const LoginContainer = () => {
 
   useEffect(() => {
     if (authError) {
-      console.log('AuthError:', authError);
+      console.error('AuthError:', authError);
 
       setError(error => error.concat('Login Failed'));
 

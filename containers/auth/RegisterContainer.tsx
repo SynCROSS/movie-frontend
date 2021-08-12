@@ -87,7 +87,7 @@ const RegisterContainer = () => {
 
   useEffect(() => {
     if (authError) {
-      console.log('AuthError:', authError);
+      console.error('AuthError:', authError);
 
       if (authError?.response?.status === 409) {
         setError(error => error.concat('This Account Already Exists.'));
