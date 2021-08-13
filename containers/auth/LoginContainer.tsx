@@ -30,11 +30,11 @@ const LoginContainer = () => {
     const { username, password } = form;
 
     if (!username) {
-      setError(error => error.concat('Check Username Has No Problem.'));
+      setError(error => error.concat('Check Username Is Empty.'));
     }
 
     if (!password) {
-      setError(error => error.concat('Check Password Has No Problem.'));
+      setError(error => error.concat('Check Password Is Empty.'));
     }
 
     dispatch(login({ username, password }));
