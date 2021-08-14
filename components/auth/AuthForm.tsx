@@ -72,11 +72,11 @@ const typeList = JSON.parse(
     register: 'Sign up',
   }),
 );
-
+export const NAME_PATTERN = '^[A-Za-z가-힣]{1,255}$';
+export const EMAIL_PATTERN =
+  '^[A-Za-z가-힣\\w]([-_\\.]?[A-Za-z가-힣\\w])*@[A-Za-z가-힣\\w]([-_\\.]?[A-Za-z가-힣\\w])*\\.[A-Za-z가-힣\\w]{2,3}$';
 export const PASSWORD_PATTERN =
   '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[\\w\\d@$!%*?&]{8,16}$';
-export const EMAIL_PATTERN =
-  '^[\\d\\w]([-_\\.]?[\\d\\w])*@[\\d\\w]([-_\\.]?[\\d\\w])*\\.[\\d\\w]{2,3}$';
 
 const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
   return (
@@ -88,6 +88,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
           placeholder="Username"
           onChange={onChange}
           value={form?.username}
+          pattern={NAME_PATTERN}
           // required
         />
         {type === 'register' && (
@@ -97,6 +98,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
             placeholder="Nickname"
             onChange={onChange}
             value={form?.nickname}
+            pattern={NAME_PATTERN}
             // required
           />
         )}
@@ -133,7 +135,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
             // required
           />
         )}
-        {error && (
+        {!!error && (
           <ErrorMessage>
             {[...error].map(err => (
               <li key={err}>{err}</li>
@@ -141,15 +143,18 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
           </ErrorMessage>
         )}
         <AuthButton>{type && typeList[type]}</AuthButton>
-        {type === 'login' ? (
-          <AuthLinkArea>
-            No Account? <a href="/Register">Create One</a>
-          </AuthLinkArea>
-        ) : type === 'register' ? (
-          <AuthLinkArea>
-            Already Have an Account? <a href="/Login">Log in</a>
-          </AuthLinkArea>
-        ) : null}
+        <AuthLinkArea>
+          {type === 'login' && (
+            <p>
+              No Account? <a href="/Register">Create One</a>
+            </p>
+          )}
+          {type === 'register' && (
+            <p>
+              Already Have an Account? <a href="/Login">Log in</a>
+            </p>
+          )}
+        </AuthLinkArea>
       </form>
     </AuthFormBlock>
   );
