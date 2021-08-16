@@ -28,6 +28,7 @@ const RegisterContainer = () => {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+    setError([]);
 
     const { username, nickname, email, password, passwordConfirm } = form;
 

@@ -26,6 +26,7 @@ const LoginContainer = () => {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+    setError([]);
 
     const { username, password } = form;
 
