@@ -30,7 +30,6 @@ const RegisterContainer = () => {
     e.preventDefault();
 
     const { username, nickname, email, password, passwordConfirm } = form;
-    console.log(authError);
 
     if (!username) {
       setError(error => error.concat('Check Username Is Empty.'));
@@ -60,10 +59,10 @@ const RegisterContainer = () => {
         error.concat(
           'Password Must Be At Least 8 ~ 16 Characters Long,',
           'Check All Passwords Must Contain',
-          'Uppercase Letters,',
-          'Lowercase Letters,',
-          'Numbers,',
-          'Special Characters',
+          '1. Uppercase Letters,',
+          '2. Lowercase Letters,',
+          '3. Numbers,',
+          '4. Special Characters',
         ),
       );
     }
