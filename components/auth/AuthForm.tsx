@@ -72,7 +72,7 @@ const typeList = JSON.parse(
     register: 'Sign up',
   }),
 );
-export const NAME_PATTERN = '^[A-Za-z가-힣]{1,255}$';
+export const NAME_PATTERN = '^\\w{1,255}$';
 export const EMAIL_PATTERN =
   '^[A-Za-z가-힣\\w]([-_\\.]?[A-Za-z가-힣\\w])*@[A-Za-z가-힣\\w]([-_\\.]?[A-Za-z가-힣\\w])*\\.[A-Za-z가-힣\\w]{2,3}$';
 export const PASSWORD_PATTERN =
