@@ -1,6 +1,6 @@
 import { memo, useEffect, ChangeEvent, FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AuthForm from '../../components/auth/AuthForm';
+import AuthForm, { NAME_PATTERN } from '../../components/auth/AuthForm';
 import { changeField, initForm, register } from '../../modules/auth';
 import { check } from '../../modules/user';
 import {
@@ -46,6 +46,14 @@ const RegisterContainer = () => {
 
     if (!passwordConfirm) {
       setError(error => error.concat('Check Confirm Password Is Empty.'));
+    }
+
+    if (!!username && !new RegExp(NAME_PATTERN).exec(username)) {
+      setError(error => error.concat('Username must be Alphabet.'));
+    }
+
+    if (!!nickname && !new RegExp(NAME_PATTERN).exec(nickname)) {
+      setError(error => error.concat('Nickname must be Alphabet.'));
     }
 
     if (!!email && !new RegExp(EMAIL_PATTERN).exec(email)) {
