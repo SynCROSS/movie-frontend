@@ -57,7 +57,7 @@ const RegisterContainer = () => {
     }
 
     if (!!email && !new RegExp(EMAIL_PATTERN).exec(email)) {
-      setError(error => error.concat('Check Email is Empty.'));
+      setError(error => error.concat('Check Email is Right Format.'));
     }
 
     if (
