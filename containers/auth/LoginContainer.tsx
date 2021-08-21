@@ -1,6 +1,9 @@
 import { memo, useEffect, FormEvent, ChangeEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AuthForm from '../../components/auth/AuthForm';
+import AuthForm, {
+  NAME_PATTERN,
+  PASSWORD_PATTERN,
+} from '../../components/auth/AuthForm';
 import { changeField, initForm, login } from '../../modules/auth';
 import { RootState } from '../../modules/index';
 import { check } from '../../modules/user';
@@ -36,6 +39,23 @@ const LoginContainer = () => {
 
     if (!password) {
       setError(error => error.concat('Check Password Is Empty.'));
+    }
+
+    if (!!username && !new RegExp(NAME_PATTERN).exec(username)) {
+      setError(error => error.concat('Username must be Alphabet.'));
+    }
+
+    if (!!password && !new RegExp(PASSWORD_PATTERN).exec(password)) {
+      setError(error =>
+        error.concat(
+          'Password Must Be At Least 8 ~ 16 Characters Long,',
+          'Check All Passwords Must Contain',
+          '1. Uppercase Letters,',
+          '2. Lowercase Letters,',
+          '3. Numbers,',
+          '4. Special Characters',
+        ),
+      );
     }
 
     dispatch(login({ username, password }));
