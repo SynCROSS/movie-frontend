@@ -22,7 +22,8 @@ const RegisterContainer = () => {
   }));
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target;
+    const { name, value } = e.target;
+
     dispatch(changeField({ form: 'register', key: name, value }));
   };
 
@@ -61,8 +62,8 @@ const RegisterContainer = () => {
     }
 
     if (
-      !new RegExp(PASSWORD_PATTERN).exec(password) ||
-      !new RegExp(PASSWORD_PATTERN).exec(passwordConfirm)
+      (!!password && !new RegExp(PASSWORD_PATTERN).exec(password)) ||
+      (!!passwordConfirm && !new RegExp(PASSWORD_PATTERN).exec(passwordConfirm))
     ) {
       setError(error =>
         error.concat(
