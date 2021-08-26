@@ -25,6 +25,59 @@ const RegisterContainer = () => {
     const { name, value } = e.target;
 
     dispatch(changeField({ form: 'register', key: name, value }));
+
+    switch (name) {
+      case 'username':
+        if (!value) {
+          setError(error => error.concat('Check Username Is Empty.'));
+        }
+
+        if (!!value && !new RegExp(NAME_PATTERN).exec(value)) {
+          setError(error => error.concat('Username must be Alphabet.'));
+        }
+        break;
+      case 'nickname':
+        if (!value) {
+          setError(error => error.concat('Check Nickname Is Empty.'));
+        }
+
+        if (!!value && !new RegExp(NAME_PATTERN).exec(value)) {
+          setError(error => error.concat('Nickname must be Alphabet.'));
+        }
+        break;
+      case 'email':
+        if (!!value && !new RegExp(EMAIL_PATTERN).exec(value)) {
+          setError(error => error.concat('Check Email is Right Format.'));
+        }
+        break;
+      case 'password':
+      case 'passwordConfirm':
+        if (!!value && !new RegExp(PASSWORD_PATTERN).exec(value)) {
+          setError(error =>
+            error.concat(
+              'Password Must Be At Least 8 ~ 16 Characters Long,',
+              'Check All Passwords Must Contain',
+              '1. Uppercase Letters,',
+              '2. Lowercase Letters,',
+              '3. Numbers,',
+              '4. Special Characters',
+            ),
+          );
+        }
+        break;
+      case 'password':
+        if (!value) {
+          setError(error => error.concat('Check Password Is Empty.'));
+        }
+        break;
+      case 'passwordConfirm':
+        if (!value) {
+          setError(error => error.concat('Check Confirm Password Is Empty.'));
+        }
+        break;
+      default:
+        break;
+    }
   };
 
   const onSubmit = (e: FormEvent) => {

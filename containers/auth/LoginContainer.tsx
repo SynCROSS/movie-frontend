@@ -25,6 +25,38 @@ const LoginContainer = () => {
     const { name, value } = e.target;
 
     dispatch(changeField({ form: 'login', key: name, value }));
+
+    switch (name) {
+      case 'username':
+        if (!value) {
+          setError(error => error.concat('Check Username Is Empty.'));
+        }
+
+        if (!!value && !new RegExp(NAME_PATTERN).exec(value)) {
+          setError(error => error.concat('Username must be Alphabet.'));
+        }
+        break;
+      case 'password':
+        if (!value) {
+          setError(error => error.concat('Check Password Is Empty.'));
+        }
+
+        if (!!value && !new RegExp(PASSWORD_PATTERN).exec(value)) {
+          setError(error =>
+            error.concat(
+              'Password Must Be At Least 8 ~ 16 Characters Long,',
+              'Check All Passwords Must Contain',
+              '1. Uppercase Letters,',
+              '2. Lowercase Letters,',
+              '3. Numbers,',
+              '4. Special Characters',
+            ),
+          );
+        }
+        break;
+      default:
+        break;
+    }
   };
 
   const onSubmit = (e: FormEvent) => {
