@@ -4,6 +4,7 @@ import { startLoading, finishLoading } from '../modules/loading';
 export const createRequestActionTypes = (type: string) => {
   const SUCCESS = `${type}_SUCCESS` as const;
   const FAILURE = `${type}_FAILURE` as const;
+  
   return [type, SUCCESS, FAILURE];
 };
 
