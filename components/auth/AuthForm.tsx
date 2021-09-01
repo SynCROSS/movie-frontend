@@ -108,7 +108,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
             autoComplete="email"
             type="email"
             name="email"
-            placeholder="Email [Optional]"
+            placeholder="Email"
             onChange={onChange}
             value={form?.email}
             pattern={EMAIL_PATTERN}
