@@ -94,6 +94,10 @@ const RegisterContainer = () => {
       setError(error => error.concat('Check Nickname Is Empty.'));
     }
 
+    if (!email) {
+      setError(error => error.concat('Check Email Is Empty.'));
+    }
+
     if (!password) {
       setError(error => error.concat('Check Password Is Empty.'));
     }
@@ -136,9 +140,7 @@ const RegisterContainer = () => {
       );
     }
 
-    if (!error && form?.passwordConfirm) {
-      form.passwordConfirm = undefined;
-
+    if (error?.length === 0) {
       dispatch(register(form));
     }
   };
@@ -158,14 +160,12 @@ const RegisterContainer = () => {
     }
 
     if (auth) {
-      const { id, createdAt, updatedAt, deletedAt, ...userData } = auth;
+      console.log('Successfully Registered');
 
-      console.log('Successfully Registered', userData);
-
-      const token = document?.cookie
-        ?.split('; ')
-        ?.find(row => row.startsWith('Authentication='))
-        ?.split('=')[1];
+      const token =
+        typeof sessionStorage !== 'undefined'
+          ? sessionStorage?.getItem('token')
+          : '';
 
       dispatch(check({ token }));
     }
@@ -174,7 +174,7 @@ const RegisterContainer = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (user) {
+    if (!!user) {
       console.log('User:', user);
       router.push('/Login');
     }
