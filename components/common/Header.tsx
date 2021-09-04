@@ -45,6 +45,10 @@ const MenuLink = styled.a`
   }
 `;
 
+const Username = styled.strong`
+  margin: 0 10px;
+`;
+
 const StyledAuthButton = styled(AuthButton)`
   margin: 0 0.5rem;
   width: 6rem;
@@ -88,14 +92,14 @@ const CloseButton = styled.button`
 
 const Header = ({ user }) => {
   const openMenu = () => {
-    if (document) {
+    if (typeof document !== 'undefined') {
       document.getElementById('header_menu').style.width = '100px';
       document.getElementById('header_block').style.width = '100%';
     }
   };
 
   const closeMenu = () => {
-    if (document) {
+    if (typeof document !== 'undefined') {
       document.getElementById('header_menu').removeAttribute('style');
       document.getElementById('header_block').removeAttribute('style');
     }
@@ -124,8 +128,10 @@ const Header = ({ user }) => {
       </HeaderMenu>
       {user ? (
         <div className="flex jc-center ai-center">
-          <strong>{user?.username}</strong>
-          <StyledAuthButton>Log out</StyledAuthButton>
+          <Username>{user?.username}</Username>
+          <StyledAuthButton onClick={() => sessionStorage.removeItem('token')}>
+            Log out
+          </StyledAuthButton>
         </div>
       ) : (
         <div className="flex jc-center ai-center">
