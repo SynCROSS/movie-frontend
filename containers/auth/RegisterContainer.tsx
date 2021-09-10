@@ -140,9 +140,7 @@ const RegisterContainer = () => {
       );
     }
 
-    if (error?.length === 0) {
-      dispatch(register(form));
-    }
+    dispatch(register(form));
   };
 
   useEffect(() => {
