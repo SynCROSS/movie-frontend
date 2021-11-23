@@ -76,6 +76,7 @@ const RegisterContainer = () => {
         }
         break;
       default:
+        console.log(name, value);
         break;
     }
   };
@@ -139,6 +140,8 @@ const RegisterContainer = () => {
         error.concat('Check Password And Confirm Password Are Same.'),
       );
     }
+
+    form?.passwordConfirm ?? delete form.passwordConfirm;
 
     dispatch(register(form));
   };
