@@ -7,8 +7,14 @@ import {
   getTrendingContents,
 } from '../../lib/api/contents';
 
-const shuffleArray = (array: Array<any>) =>
-  array.sort(() => Math.random() - 0.5);
+const shuffleArray = (array: Array<any>) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
 
 const HomeContainer = () => {
   const [popularContents, setPopularContents] = useState([]);
